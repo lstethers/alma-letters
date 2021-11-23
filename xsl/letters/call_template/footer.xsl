@@ -7,33 +7,23 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 <xsl:template name="salutation">
 
 </xsl:template>
+
 <xsl:template name="lastFooter">
-	<table>
-	<xsl:attribute name="style">
-		<xsl:call-template name="footerTableStyleCss" /> <!-- style.xsl -->
-	</xsl:attribute>
-	<tr>
-	<xsl:for-each select="notification_data/organization_unit">
-
-		<xsl:attribute name="style">
-			<xsl:call-template name="listStyleCss" /> <!-- style.xsl -->
-		</xsl:attribute>
-			<td align="center"><xsl:value-of select="name"/>&#160;<xsl:value-of select="line1"/>&#160;<xsl:value-of select="line2"/>&#160;<xsl:value-of select="city"/>&#160;<xsl:value-of select="postal_code"/>&#160;<xsl:value-of select="country"/></td>
-
-	</xsl:for-each>
-	</tr>
+<!-- BEGIN Wesleyan removed content END -->
+</xsl:template>
+<!-- BEGIN Wesleyan added institution name END -->
+<xsl:template name="wes_signature">
+	<table align="left">
+	<tr><td align="left">Wesleyan University Library</td></tr>
 	</table>
 </xsl:template>
+
 <xsl:template name="contactUs">
 	<table align="left">
 	<tr>
 	<td align="left">
-	<a>
-                        <xsl:attribute name="href">
-                          @@email_contact_us@@
-                        </xsl:attribute>
+<!-- BEGIN Wesleyan removed content END -->
 						@@contact_us@@
-					</a>
 	</td>
 </tr>
 	</table>
@@ -52,7 +42,5 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 </tr>
 	</table>
 </xsl:template>
-
-
 
 </xsl:stylesheet>
