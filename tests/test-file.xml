@@ -1,0 +1,7 @@
+<!-- This can be any dummy XML file that represents a typical file in your work-->
+<?xml version="1.0"?>
+<article>
+  <title>The Pecan pie recipe</title>
+  <ingredients>Eggs, Sugar, Pecan nuts</ingredients>
+  <body>Scramble the eggs, add the sugar and the pecan nuts.Cook in the oven for 30 minutes.</body>
+</article>
