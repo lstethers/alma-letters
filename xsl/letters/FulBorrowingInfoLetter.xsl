@@ -62,6 +62,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 							</xsl:when>
 
 							<xsl:otherwise>
+<!-- BEGIN Wesleyan removed failure reason							
 								<xsl:choose>
 									<xsl:when test="notification_data/note != ''">
 										<tr>
@@ -69,8 +70,9 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 										</tr>
 									</xsl:when>
 								</xsl:choose>
+END -->
 								<tr>
-									<td><strong>@@contact_dep@@</strong></td>
+									<td>@@contact_dep@@</td>
 								</tr>
 							</xsl:otherwise>
 
@@ -85,7 +87,10 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 					</table>
 				</div>
 			</div>
-			<xsl:call-template name="lastFooter" /> <!-- footer.xsl -->
+				<xsl:call-template name="lastFooter" /> <!-- footer.xsl -->
+<!-- BEGIN Wesleyan added contact info -->
+				<xsl:call-template name="contactUs" />
+<!-- END -->				
 		</body>
 	</html>
 	</xsl:template>

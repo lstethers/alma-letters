@@ -107,8 +107,12 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 				</table>
 				</table>
 				<br />
-
-				<xsl:call-template name="lastFooter" /> <!-- footer.xsl -->
+<!-- BEGIN - Wesleyan modified -->
+				        <!-- footer.xsl -->
+        <xsl:call-template name="lastFooter" />
+        <xsl:call-template name="myAccount" />
+	<xsl:call-template name="contactUs" />
+<!-- END - Wesleyan modified -->
 			</body>
 	</html>
 </xsl:template>

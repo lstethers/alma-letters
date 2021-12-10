@@ -42,30 +42,7 @@
 		                </td>
 		              </tr>
 		            </table>
-					<table role='presentation' >
-						<tr>
-							<td>@@signature@@</td>
-						</tr>
-						<tr>
-							<td>
-								<xsl:value-of select="notification_data/organization_unit/name" />
-							</td>
-						</tr>
-						<xsl:if test="notification_data/organization_unit/address/city !=''">
-							<tr>
-								<td>
-									<xsl:value-of select="notification_data/organization_unit/address/city" />
-								</td>
-							</tr>
-						</xsl:if>
-						<xsl:if test="notification_data/organization_unit/address/country !=''">
-							<tr>
-								<td>
-									<xsl:value-of select="notification_data/organization_unit/address/country" />
-								</td>
-							</tr>
-						</xsl:if>
-					</table>
+<!-- BEGIN Wesleyan remove full contact info END -->
 		          </div>
 				</div>
 			<xsl:call-template name="lastFooter" /> <!-- footer.xsl -->

@@ -10,13 +10,24 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <xsl:include href="recordTitle.xsl" />
 
   <xsl:template match="/">
+
+<xsl:comment>
+	BEGIN - Wesleyan added this section for Wesleyan to prevent sending courtesy notices for ILL loans.
+	what it does: Terminate if the number of items in the letter is equal to the number of items in the letter with library = InterLibrary Loan
+</xsl:comment>
+    <xsl:if test="count(notification_data/item_loans/item_loan/library_name) =
+            count(notification_data/item_loans/item_loan/library_name[.='Interlibrary Loan'])">
+                     <xsl:message terminate="yes">Ending letter. All Items are from ILL</xsl:message>
+     </xsl:if>
+<xsl:comment>END Wesleyan</xsl:comment>
+
+
     <html>
 			<xsl:if test="notification_data/languages/string">
 				<xsl:attribute name="lang">
 					<xsl:value-of select="notification_data/languages/string"/>
 				</xsl:attribute>
-			</xsl:if>
-
+			</xsl:if>    
       <head>
 				<title>
 					<xsl:value-of select="notification_data/general_data/subject"/>
@@ -49,6 +60,10 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 						<strong>@@message@@</strong>
 					</xsl:if>
 					<br/><br/>
+<!-- BEGIN - Wesleyan added renewal instructions -->
+<p><strong>How to renew:</strong> In <a href="http://onesearch.wesleyan.edu">OneSearch</a> choose Menu or your name from the top right corner > My Account > Loans > click box next to the items to renew > click Renew Selected.</p>
+<p>Please contact the circulation office with any other questions.  </p>
+<!--END - Wesleyan -->
                 </td>
               </tr>
               <tr>
@@ -59,7 +74,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
               <tr>
                 <td>
-                	<table  cellpadding="5" class="listing">
+                	<table cellpadding="5" class="listing">
 						<xsl:attribute name="style">
 							<xsl:call-template name="mainTableStyleCss" /> <!-- style.xsl -->
 						</xsl:attribute>
@@ -72,6 +87,8 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 						</tr>
 
                 		<xsl:for-each select="notification_data/item_loans/item_loan">
+                   		    <xsl:comment>BEGIN Wesleyan added if statement so we don't provide courtesy notice info for ILL loans</xsl:comment>
+                		    <xsl:if test="not((notification_data/item_loan/library_name = 'Interlibrary Loan') and (notification_data/item_loan/location_code = 'OUT_RS_REQ'))">
 						<tr>
 							<td><xsl:value-of select="title"/></td>
 							<td><xsl:value-of select="description"/></td>
@@ -80,7 +97,10 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 							<td><xsl:value-of select="library_name"/></td>
 
 						</tr>
-						</xsl:for-each>
+                		    </xsl:if>
+                		    <xsl:comment>END Wesleyan added if statement so we don't provide courtesy notice info for ILL loans</xsl:comment>
+
+				</xsl:for-each>
 
                 	</table>
                 </td>
@@ -99,9 +119,9 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
           </div>
         </div>
-
-        <!-- footer.xsl -->
-        <xsl:call-template name="lastFooter" />
+				<!-- footer.xsl -->
+				<xsl:call-template name="lastFooter" /> 
+				<xsl:call-template name="contactUs" />
       </body>
     </html>
   </xsl:template>

@@ -23,9 +23,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 				<xsl:call-template name="head" /> <!-- header.xsl -->
 				<xsl:call-template name="senderReceiver" /> <!-- SenderReceiver.xsl -->
 
-				<br />
-				<xsl:call-template name="toWhomIsConcerned" /> <!-- mailReason.xsl -->
-
+<!-- BEGIN Wesleyan remove salutation END -->
 				<xsl:for-each select="notification_data/letter_texts">
 				<table cellspacing="0" cellpadding="5" border="0">
 					<tr>
@@ -40,23 +38,18 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 					<tr>
 						<td><b>@@order_date@@: </b> <xsl:value-of select="/notification_data/po/create_date"/></td>
 					</tr>
+<!-- BEGIN Wesleyan remove vendor account END -->
 					<tr>
-						<td><b>@@vendor_account@@: </b><xsl:value-of select="/notification_data/po/vendor_account/description"/></td>
+<!-- BEGIN Wesleyan include complete address -->
+						<td><b>@@shipping_address@@: </b><xsl:value-of select="/notification_data/po/ship_to_address/line1"/>&#160;<xsl:value-of select="/notification_data/po/ship_to_address/line2"/>&#160;<xsl:value-of select="/notification_data/po/ship_to_address/line3"/>&#160;<xsl:value-of select="/notification_data/po/ship_to_address/city"/>,&#160;<xsl:value-of select="/notification_data/po/ship_to_address/state_province"/>&#160;<xsl:value-of select="/notification_data/po/ship_to_address/postal_code"/>&#160;<xsl:value-of select="/notification_data/po/ship_to_address/country"/></td>
+<!-- END Wesleyan include complete address  -->						
 					</tr>
+<!-- BEGIN Wesleyan remove shipping method END -->
 					<tr>
-						<td><b>@@shipping_address@@: </b><xsl:value-of select="/notification_data/po/ship_to_address/line1"/>&#160;<xsl:value-of select="/notification_data/po/ship_to_address/line2"/>&#160;<xsl:value-of select="/notification_data/po/ship_to_address/city"/>&#160;<xsl:value-of select="/notification_data/po/ship_to_address/country"/></td>
+<!-- BEGIN Wesleyan include complete address -->
+						<td><b>@@billing_address@@: </b><xsl:value-of select="/notification_data/po/bill_to_address/line1"/>&#160;<xsl:value-of select="/notification_data/po/bill_to_address/line2"/>&#160;<xsl:value-of select="/notification_data/po/bill_to_address/line3"/>&#160;<xsl:value-of select="/notification_data/po/bill_to_address/city"/>,&#160;<xsl:value-of select="/notification_data/po/bill_to_address/state_province"/>&#160;<xsl:value-of select="/notification_data/po/bill_to_address/postal_code"/>&#160;<xsl:value-of select="/notification_data/po/bill_to_address/country"/></td>
 					</tr>
-					<tr>
-						<td><b>@@shipping_method@@: </b><xsl:value-of select="/notification_data/po/shipping_method"/></td>
-					</tr>
-					<tr>
-						<td><b>@@billing_address@@: </b><xsl:value-of select="/notification_data/po/bill_to_address/line1"/>&#160;<xsl:value-of select="/notification_data/po/bill_to_address/line2"/>&#160;<xsl:value-of select="/notification_data/po/bill_to_address/city"/>&#160;<xsl:value-of select="/notification_data/po/bill_to_address/country"/></td>
-					</tr>
-					<xsl:if test="/notification_data/po/erp_number != ''">
-						<tr>
-							<td><b>@@erp_number@@: </b><xsl:value-of select="/notification_data/po/erp_number"/></td>
-						</tr>
-					</xsl:if>
+<!-- BEGIN Wesleyan remove erp number END -->					
 				</table>
 				</xsl:for-each>
 				<br />
@@ -88,11 +81,23 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 					</xsl:for-each>
 				</table>
 				<br />
+<!-- BEGIN Wesleyan add vendor account  -->				
+				<table cellspacing="0" cellpadding="5" border="0">
+					<tr>
+						<td>@@vendor_account@@</td>
+					</tr>
+				</table>				
+<!-- END Wesleyan add vendor account -->								
+				<br />
 				<table>
 
 						<tr><td>@@sincerely@@</td></tr>
-						<tr><td>@@department@@</td></tr>
-
+<!-- BEGIN Wesleyan add contact info  -->	
+						<tr><td>Acquisitions Department<br />
+						<xsl:value-of select="/notification_data/organization_unit/address/line1"/><br /><xsl:value-of select="/notification_data/organization_unit/address/line2"/><br /><xsl:value-of select="/notification_data/organization_unit/address/line3"/><br /><xsl:value-of select="/notification_data/organization_unit/address/city"/>, <xsl:value-of select="/notification_data/organization_unit/address/state_province"/>&#160; <xsl:value-of select="/notification_data/organization_unit/address/postal_code"/>&#160;<xsl:value-of select="/notification_data/organization_unit/address/country"/><br />
+						<xsl:value-of select="/notification_data/general_data/address_from"/>
+						</td></tr>		
+<!-- END Wesleyan add contact info  -->
 				</table>
 
 

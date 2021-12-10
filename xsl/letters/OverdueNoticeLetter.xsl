@@ -42,8 +42,11 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 			<table role='presentation'  cellspacing="0" cellpadding="5" border="0">
               <tr>
               	<td>
-					<strong>@@message@@</strong>
-					<br/><br/>
+<!-- BEGIN - Wesleyan added renewal instructions -->
+<p>The following item(s) are due today. You may renew them from OneSearch. </p>
+<p><strong>How to renew:</strong> In <a href="http://onesearch.wesleyan.edu">OneSearch</a> choose Menu or your name from the top right corner > My Account > Loans > click box next to the items to renew > click Renew Selected.</p>
+<p>Please contact the circulation department with any other questions.  </p>
+<!--END - Wesleyan added renewal instructions -->
                 </td>
               </tr>
               <tr>
@@ -95,9 +98,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
           </div>
         </div>
 
-        <!-- footer.xsl -->
-        <xsl:call-template name="lastFooter" />
-         <xsl:call-template name="myAccount" />
+		<xsl:call-template name="lastFooter" /> <!-- footer.xsl -->
 		<xsl:call-template name="contactUs" />
       </body>
     </html>

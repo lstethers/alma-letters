@@ -35,16 +35,39 @@
 						<table role='presentation'  cellspacing="0" cellpadding="5" border="0">
 							<tr>
 								<td>
-									@@on@@
-									<xsl:value-of select="notification_data/general_data/current_date" />
-									@@we_cancel_y_req_of@@
-									<xsl:value-of select="notification_data/request/create_date" />
-									@@detailed_below@@ :
+<!-- BEGIN modified for Wesleyan -->								
+									@@we_cancel_y_req_of@@ @@on@@
+									<xsl:value-of select="notification_data/general_data/current_date" />.
+						<!-- For digitizaton requests, have them go to SC&A - LSS -->
+							<tr>
+							<td>
+							<xsl:choose>
+								<xsl:when test="notification_data/request/request_type = 'PHYSICAL_TO_DIGITIZATION'">
+									<b>Please visit Special Collections &amp; Archives to use the physical item.</b>
+								</xsl:when>
+								<xsl:when test="notification_data/request/status_note = 'ExpiredOnHoldShelf'">
+								<!-- For all expired hold shelf items, tell them what library their item was on the shelf at so they know who to contact - LSS -->
+									The item on hold at <b><xsl:value-of select="notification_data/request/delivery_address"/></b> was not picked up in time.					
+								</xsl:when>								
+								<xsl:when test="notification_data/request/status_note != 'ExpiredOnHoldShelf'">
+								<!-- For all other requests, have them contact a Reference Librarian, unless the request is cancelled because it was not picked up from hold shelf in time - LSS -->
+									<b>Please contact a reference librarian for help borrowing this material from another library.</b>					
+									</xsl:when>						
+							</xsl:choose>
+<!-- not implementing this yet, but it may be useful for identifying CTW requests vs. Wesleyan - LSS
+	<xsl:when test="notification_data/request/request_type = 'PATRON_PHYSICAL'">			
+	<xsl:if test="notification_data/receivers/receiver/user/external_id = '01CTW_WU'">
+-->
+							</td>
+							</tr>
+<!-- END modified for Wesleyan -->							
 								</td>
 							</tr>
 							<tr>
 								<td>
-									<xsl:call-template name="recordTitle" /> <!-- recordTitle.xsl -->
+<!-- BEGIN modified for Wesleyan, formatting -->	
+									<h2><xsl:call-template name="recordTitle" /> <!-- recordTitle.xsl --></h2>
+<!-- END modified for Wesleyan -->										
 								</td>
 							</tr>
 							<!-- <xsl:if test="notification_data/metadata/title != ''">
@@ -293,17 +316,18 @@
 								<td>
 									<strong> @@reason_deleting_request@@: </strong>
 									<xsl:value-of select="notification_data/request/status_note_display" />
-								</td>
-							</tr>
+<!-- BEGIN - modified for Wesleyan - purchase requests -->									
+									
 							<xsl:if test="notification_data/request/cancel_reason != ''">
-								<tr>
-									<td>
-										<strong> @@request_cancellation_note@@: </strong>
-										<xsl:value-of select="notification_data/request/cancel_reason" />
+									-- <xsl:value-of select="notification_data/request/cancel_reason" />
+									</xsl:if>
+									<xsl:if test="notification_data/request/approval_entity/note != ''">
+									-- <xsl:value-of select="notification_data/request/approval_entity/note" />
+									</xsl:if>
 									</td>
 								</tr>
-							</xsl:if>
 						</table>
+<!-- END - modified for Wesleyan -->							
 						<br />
 						<table role='presentation' >
 

@@ -32,115 +32,25 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 				<xsl:call-template name="head" /> <!-- header.xsl -->
 				<xsl:call-template name="senderReceiver" /> <!-- SenderReceiver.xsl -->
-
-				<br />
+<!-- BEGIN Wesleyan rewrite whole letter - add introduction and link to item, method to report problem, link to purchase recommendation form -->				
 				<xsl:call-template name="toWhomIsConcerned" /> <!-- mailReason.xsl -->
-					@@You_were_specify@@:
-				<br />
-				<table role='presentation'  cellspacing="0" cellpadding="5" border="0">
-				<tr>
-					<td>
-				<br />
-				@@orderNumber@@	:
+<p>The library item in which you expressed interest is now available from this link in OneSearch:</p>
 
-						<br />
+<xsl:variable name="MMSID" select="notification_data/mms_id" />
 
-					</td>
-						<td>
-				<br />
-				<xsl:value-of  select="notification_data/line_number"/>
+<xsl:variable name="message1" select="concat('https://ctw-wu.primo.exlibrisgroup.com/discovery/search?query=any,contains,', $MMSID, '&amp;tab=Everything&amp;search_scope=Everything&amp;vid=01CTW_WU:CTWWU&amp;offset=0')" />
 
-						<br />
+<p><a href="{$message1}"><xsl:value-of  select="notification_data/title"/></a></p>
 
-					</td>
-					</tr>
-				<tr>
-					<td>
-				<br />
-				@@title@@ :
+<p>Should you experience any problem or question regarding digital access, please report it through our <a href ="https://wesleyanedu.service-now.com/sp?id=sc_cat_item&amp;sys_id=87fadfa1db32e340b81b1be3159619b0&amp;sysparm_category=619d9ff0db8fe700b81b1be3159619b0">Report a Library Resource Issue form</a> and the library will work to resolve it as soon as possible.</p>
 
-						<br />
+<p>Please recommend additional new books you’d like the library to acquire through our <a href="https://www.wesleyan.edu/libr/howdoi/purchaserecommend.html">Recommend a Purchase form</a>.</p>
 
-					</td>
-						<td>
-				<br />
-				<xsl:value-of  select="notification_data/title"/>
+<p>Thank you for your request and for helping build the Wesleyan Library collection.</p>
 
-						<br />
-
-					</td>
-					</tr>
-				<tr>
-					<td>
-				<br />
-				@@mmsId@@ :
-
-						<br />
-
-					</td>
-						<td>
-				<br />
-				<xsl:value-of  select="notification_data/mms_id"/>
-
-						<br />
-
-					</td>
-					</tr>
-					<tr>
-					<td>
-				<br />
-				@@callNumber@@	:
-
-						<br />
-
-					</td>
-						<td>
-				<br />
-				<xsl:value-of  select="notification_data/poline_inventory/call_number"/>
-
-						<br />
-
-					</td>
-					</tr>
-				<tr>
-					<td>
-				<br />
-				@@receivingNote@@ :
-
-						<br />
-
-					</td>
-						<td>
-				<br />
-				<xsl:value-of  select="notification_data/receiving_note"/>
-						<br />
-
-					</td>
-				</tr>
-					<tr>
-					<td>
-				<br />
-				@@message@@	:
-
-						<br />
-
-					</td>
-						<td>
-				<br />
-				<xsl:value-of  select="notification_data/message"/>
-
-						<br />
-
-					</td>
-					</tr>
-
-				</table>
-				<br />
-				<table role='presentation' >
-						<tr><td>@@sincerely@@</td></tr>
-						<tr><td>@@department@@</td></tr>
-				</table>
-
+@@department@@<br/>
+@@addressFrom@@
+<!-- END Wesleyan rewrite whole letter -->
 				<xsl:call-template name="lastFooter" /> <!-- footer.xsl -->
 			</body>
 	</html>

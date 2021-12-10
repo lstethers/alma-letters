@@ -12,7 +12,9 @@
 			<head>
 				<xsl:call-template name="generalStyle" />
 			</head>
-			<body style="color:#333; margin:0; padding: 10px 20px; font-size:80%; font-family: 'Source Sans Pro' !important; background-color: #f3f7f8;" data-new-gr-c-s-check-loaded="14.984.0" data-gr-ext-installed="">
+<!-- BEGIN Wesleyan change fonts -->
+			<body style="color:#333; margin:0; padding: 10px 20px; font-size:80%; background-color: #f3f7f8;" data-new-gr-c-s-check-loaded="14.984.0" data-gr-ext-installed="">
+<!-- END Wesleyan change fonts -->			
 				<xsl:attribute name="style">
           <xsl:call-template name="bodyStyleCss" /><!-- style.xsl -->
         </xsl:attribute>
@@ -22,33 +24,59 @@
 
 				
 				<xsl:call-template name="toWhomIsConcerned" /> <!-- mailReason.xsl -->
-
+<!-- BEGIN Wesleyan change fonts -->
 				<table role='presentation'  cellspacing="0" cellpadding="5" border="0"
-							style="width:100%; background-color: #f3f7f8; padding: 0px 25px 25px 25px; border-bottom: 2px solid #dce8eb; font-family: 'Source Sans Pro' !important;padding: 25px 0 15px 0;">
+							style="width:100%; background-color: #f3f7f8; padding: 0px 25px 25px 25px; border-bottom: 2px solid #dce8eb; padding: 25px 0 15px 0;">
+<!-- END Wesleyan change fonts -->
 
 						<tr>
+<!-- BEGIN Wesleyan hide totals													
 							<td style="font-size:18px; padding: 0px 0 15px 0; font-weight: 700;">
 								
 									@@you_have@@
 									<xsl:value-of select="notification_data/total_count" />
+END Wesleyan -->
+							<td>
 									@@new_notifications@@
-								
-								
+<br /><br />									
 							</td>
 						</tr>
 				</table>
 				<div class="messageArea">
 					<div class="messageBody">
 					<xsl:for-each select="notification_data/events/detailed_notifications_summary">
+<!-- BEGIN Wesleyan change fonts -->					
+						<table cellspacing="0" cellpadding="5" border="0"
+							style="width:100%; background-color: #f3f7f8; padding: 0px 25px 25px 25px; border-bottom: 2px solid #dce8eb; padding: 25px 0 15px 0;">
+					
+<!--							
 						<table cellspacing="0" cellpadding="5" border="0"
 							style="width:100%; background-color: #f3f7f8; padding: 0px 25px 25px 25px; border-bottom: 2px solid #dce8eb; font-family: 'Source Sans Pro' !important;padding: 25px 0 15px 0;">
 
+							<h2 style="font-size: 2em; font-weight: 300; padding: 20px 0 5px 0; margin: 0;"> 
+							@@list@@ 
+-->
+							<h2>
+								<xsl:value-of select="list_name" />
 							
-							<h2 style="font-size: 2em; font-weight: 300; padding: 20px 0 5px 0; margin: 0;">
-								@@list@@ <xsl:value-of select="list_name" />
+<!-- BEGIN Wesleyan change layout 
+								<tr>
+									<td style="padding:0 0 5px 0px;">
+ END Wesleyan -->
+										<xsl:element name="a">
+												<xsl:attribute name="href">
+												<xsl:value-of select="permalink_url" />
+												</xsl:attribute>
+												<xsl:attribute name="style">
+													<xsl:value-of select="'color:#337ab7; font-weight:bold;'"/>
+												</xsl:attribute>
+												@@go_to@@ 
+										</xsl:element>
 							</h2>
-						
-										
+<!--										
+									</td>
+								</tr>						
+-->										
 							<xsl:for-each select="notification_list/notifications_summary">
 								<tr>
 									<td style="padding:0 0 5px 0px;">
@@ -60,20 +88,7 @@
 
 								</tr>
 							</xsl:for-each>
-							<tr>
-									<td style="padding:0 0 5px 0px;">
-									
-										<xsl:element name="a">
-												<xsl:attribute name="href">
-												<xsl:value-of select="permalink_url" />
-												</xsl:attribute>
-												<xsl:attribute name="style">
-													<xsl:value-of select="'color:#337ab7; font-weight:bold;'"/>
-												</xsl:attribute>
-												@@go_to@@ 
-										</xsl:element>
-									</td>
-								</tr>
+<!-- BEGIN Wesleyan moved course link elsewhere END -->
 							</table>
 						</xsl:for-each>
 						<xsl:for-each select="notification_data/delete_events/detailed_notifications_summary">
@@ -116,6 +131,7 @@
 							</table>
 						
 						</xsl:for-each>
+							<br />
 							<span style="padding:0 0 5px 10px; margin: 0 0 10px 0;">
 							@@see_all_your_lists@@
 							<xsl:element name="a">
@@ -134,10 +150,9 @@
 
 					</div>
 				</div>
-
+<br />
 				<!-- footer.xsl -->
 				<xsl:call-template name="lastFooter" />
-				<xsl:call-template name="myAccount" />
 				<xsl:call-template name="contactUs" />
 			</body>
 		</html>

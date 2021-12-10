@@ -38,96 +38,66 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
         <!-- header.xsl -->
         <xsl:call-template name="senderReceiver" />
         <!-- SenderReceiver.xsl -->
+<!-- BEGIN - Wesleyan added -->        
+        <xsl:call-template name="toWhomIsConcerned" /> 
+        <!-- mailReason.xsl -->
+<!-- END - Wesleyan added -->
         <div class="messageArea">
           <div class="messageBody">
             <table role='presentation'  cellspacing="0" cellpadding="5" border="0">
 				<tr>
-					<td>@@your_request@@.</td>
+<!-- BEGIN - Wesleyan simplified -->        
+					<td>@@your_request@@</td>
 				</tr>
-				<xsl:if test="$isDeposit='true'">
-				<tr>
-					<td>@@material@@:</td>
-				</tr>
-				<tr>
+					<tr>
 					<td>
-					<a>
-                        <xsl:attribute name="href">
-                          <xsl:value-of select="notification_data/item_url" />
-                        </xsl:attribute>
-						<xsl:value-of select="notification_data/phys_item_display/title"/>
-					</a>
+						<h2><xsl:value-of select="notification_data/phys_item_display/title"/></h2>
 					</td>
 				</tr>
-				</xsl:if>
+<!-- END - Wesleyan simplified -->        
 
 				<xsl:if test="$isDigitalDocDelivery='true' or $isDeposit='false'"> <!-- DOCUMENT DELIVERY -->
-					<tr>
-						<td>@@material@@:</td>
-					</tr>
-					<tr>
-						<td>
-							<xsl:value-of select="notification_data/phys_item_display/title"/>
-						</td>
-					</tr>
-					<xsl:if test="$externalRequestId">
-						<tr>
-							<td>@@the_request_relates@@<xsl:value-of select="$externalRequestId"/> @@of@@ <xsl:value-of select="$externalSystem"/>.</td>
-						</tr>
-					</xsl:if>
-
+<!-- BEGIN - Wesleyan simplified -->        				
+<!-- END - Wesleyan simplified -->        				
 					<xsl:if test="/notification_data/url_list[string]">
 						<tr>
-							<td>@@attached_are_the_urls@@:</td>
-						</tr>
-
+							<td>@@attached_are_the_urls@@:
+<!-- BEGIN - Wesleyan formatting changes -->  							
 						<xsl:for-each select="/notification_data/attachments_list/attachments">
 							<xsl:if test="url">
-							<tr>
-								<td>
-									<a>
+									<br /><a>
 									<xsl:attribute name="href">
 										<xsl:value-of select="url" />
 									</xsl:attribute>
 									<xsl:value-of select="url" />
 									</a>
-								</td>
-							</tr>
-
+							</xsl:if>
+<!-- BEGIN - Wesleyan test whether attachment Notes field is empty LSS -->
+							<xsl:if test="notes != ''">
+									<br /><b>@@material@@ </b>
+									<xsl:value-of select="notes" />
 							</xsl:if>
 						</xsl:for-each>
-
+						<br />
+<!-- BEGIN - Wesleyan add contents of patron's request note LSS -->
+						<xsl:if test="/notification_data/request/note != ''">
+							<br />
+							<b>Your request note: </b>									<xsl:value-of select="/notification_data/request/note" />
 					</xsl:if>
+						</td>
+						</tr>
                 </xsl:if>
-                <tr>
-					<td>@@request_type_digitization@@</td>
-				</tr>
-				<xsl:if test="/notification_data/request/citation_upload_file_status">
-					<xsl:choose>
-						<xsl:when test="/notification_data/request/citation_upload_file_status = 'FILE_NOT_UPLOADED_FILE_EXISTS'">
-	                        <tr>
-	                            <td>@@file_not_uploaded_file_exists@@.</td>
-	                        </tr>
-	                    </xsl:when>
-	                    <xsl:when test="/notification_data/request/citation_upload_file_status = 'FILE_NOT_UPLOADED_MULTIPLE_FILES'">
-	                        <tr>
-	                            <td>@@file_not_uploaded_multiple_files@@.</td>
-	                        </tr>
-	                    </xsl:when>
-	                    <xsl:when test="/notification_data/request/citation_upload_file_status = 'FILE_NOT_UPLOADED_GENERAL_ERROR'">
-	                        <tr>
-	                            <td>@@file_not_uploaded_general_error@@.</td>
-	                        </tr>
-	                    </xsl:when>	 
-	                    <xsl:when test="/notification_data/request/citation_upload_file_status = 'FILE_UPLOADED_SUCCESS'">
-	                        <tr>
-	                            <td>@@file_uploaded@@.</td>
-	                        </tr>
-	                    </xsl:when>	                     
-	                </xsl:choose>
+<!-- END - Wesleyan formatting changes -->                  
+<!-- BEGIN - Wesleyan simplified --><!-- END - Wesleyan simplified --> 
                 </xsl:if>	
+<!-- BEGIN - Wesleyan added -->
+			<tr><td>@@of@@</td></tr>		
             	<tr>
 					<td>@@sincerely@@<br />@@department@@</td>
 				</tr>
+			<tr><td><em>Digitization does not equal copyright clearance. It is your responsibility to determine how you may legally use the digital images that you have received. For a guide to copyright and fair use, see <a><xsl:attribute name="href">http://libguides.wesleyan.edu/copyright_ip</xsl:attribute>http://libguides.wesleyan.edu/copyright_ip</a></em></td></tr>
+			<tr><td><em>For permission to publish please contact Special Collections &amp; Archives (sca@wesleyan.edu) and complete the Permission to Publish form <a><xsl:attribute name="href">https://www.wesleyan.edu/libr/sca/research/Wesleyan_Permission_to_Publish.pdf</xsl:attribute>https://www.wesleyan.edu/libr/sca/research/Wesleyan_Permission_to_Publish.pdf</a></em></td></tr>
+<!-- END - Wesleyan added -->			
 			</table>
           </div>
         </div>

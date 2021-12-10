@@ -27,7 +27,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
         <xsl:call-template name="senderReceiver" />
         <!-- SenderReceiver.xsl -->
 
-		<h4>@@vendor_name@@: <xsl:value-of select="/notification_data/vendor/name"/></h4>
+<!-- BEGIN - Wesleyan remove vendor name END -->
         <div class="messageArea">
           <div class="messageBody">
             <table cellspacing="0" cellpadding="5" border="0">
@@ -37,12 +37,14 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 					<br />
 					<b>@@title@@: </b><xsl:value-of select="notification_data/line/title" />
 					<br />
-					<b>@@order_number@@: </b><xsl:value-of select="notification_data/line/reference_number" />
-					<br />
+<!-- BEGIN - Wesleyan remove reference number END -->
 					<b>@@order_date@@: </b><xsl:value-of select="notification_data/line/send_date" />
 					<br />
-					<b>@@cancellation_reason@@: </b><xsl:value-of select="notification_data/line/cancellation_reason" />
+<!-- BEGIN - Wesleyan remove cancellation reason END -->
+<!-- BEGIN - Wesleyan added identifier type and identifier -->
+					<b><xsl:value-of select="notification_data/line/identifier_type"/></b>:  <xsl:value-of select="notification_data/line/identifier"/>
 					<br />
+<!-- END - Wesleyan added identifier type and identifier -->
 					<b>@@cancellation_note@@: </b><xsl:value-of select="notification_data/line/cancellation_note" />
 					<br />
 					<br />
@@ -51,12 +53,22 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 			</table>
           </div>
         </div>
+<!-- END - Wesleyan added vendor name -->        
+				<table cellspacing="0" cellpadding="5" border="0">
+					<tr>
+						<td>@@vendor_name@@</td>
+					</tr>
+				</table>				
 		<br />
 				<table>
 
 						<tr><td>@@sincerely@@</td></tr>
-						<tr><td>@@department@@</td></tr>
-
+<!-- BEGIN - Wesleyan added full contact info -->   
+						<tr><td>Acquisitions Department<br />
+						<xsl:value-of select="/notification_data/organization_unit/address/line1"/><br /><xsl:value-of select="/notification_data/organization_unit/address/line2"/><br /><xsl:value-of select="/notification_data/organization_unit/address/line3"/><br /><xsl:value-of select="/notification_data/organization_unit/address/city"/>, <xsl:value-of select="/notification_data/organization_unit/address/state_province"/>&#160; <xsl:value-of select="/notification_data/organization_unit/address/postal_code"/>&#160;<xsl:value-of select="/notification_data/organization_unit/address/country"/><br />
+						<xsl:value-of select="/notification_data/general_data/address_from"/>
+						</td></tr>					
+<!-- END - Wesleyan added full contact info -->   							
 				</table>
 		<xsl:call-template name="lastFooter" /> <!-- footer.xsl -->
       </body>

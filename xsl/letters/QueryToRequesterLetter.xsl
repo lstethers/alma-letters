@@ -29,12 +29,13 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 			<xsl:attribute name="style">
 				<xsl:call-template name="bodyStyleCss" /> <!-- style.xsl -->
 			</xsl:attribute>
-
-				<xsl:call-template name="head" /> <!-- header.xsl -->
+<!-- BEGIN Wesleyan create a separate header for purchase requests -->
+				<xsl:call-template name="head_purchaserequest" /> <!-- header.xsl -->
+<!-- END Wesleyan create a separate header for purchase requests -->
 				<xsl:call-template name="senderReceiver" /> <!-- SenderReceiver.xsl -->
 
 				<br />
-				<xsl:call-template name="toWhomIsConcerned" /> <!-- mailReason.xsl -->
+<!-- BEGIN Wesleyan remove salutation -->				
 				<table role='presentation'  cellspacing="0" cellpadding="5" border="0">
 					<tr>
 						<td>
@@ -46,8 +47,8 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 				</table>
 				<br />
 				<table role='presentation' >
-						<tr><td>@@sincerely@@</td></tr>
 						<tr><td>@@department@@</td></tr>
+						<tr><td>@@addressFrom@@</td></tr>
 				</table>
 
 				<xsl:call-template name="lastFooter" /> <!-- footer.xsl -->

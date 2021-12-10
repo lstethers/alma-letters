@@ -37,24 +37,32 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 				<xsl:call-template name="toWhomIsConcerned" /> <!-- mailReason.xsl -->
 				<table role='presentation'  cellspacing="0" cellpadding="5" border="0">
 					<tr>
-						<td>@@introduction@@
+						<td>@@introduction@@<br />
+<!-- BEGIN Wesleyan add title of item -->					
+							<p>@@title@@: <xsl:value-of select="notification_data/purchase_request/title" /></p>
+<!-- END Wesleyan add title of item -->
 							<xsl:choose >
 								<xsl:when test="/notification_data/purchase_request/request_status='APPROVED'">
-									@@approved@@ <xsl:value-of select="notification_data/purchase_request/poline_reference" />.
+<!-- BEGIN Wesleyan removed PO line info -->	
+									@@approved@@
 								</xsl:when>
 								<xsl:otherwise>
+<!-- BEGIN Wesleyan won't notify via this letter when rejecting a request 
 									@@rejected@@: <xsl:value-of select="notification_data/purchase_request/reject_reason_desc" />.
+-->
+									<xsl:message terminate="yes">Terminating when rejecting a request</xsl:message>
+<!-- END Wesleyan won't notify via this letter when rejecting a request -->
 								</xsl:otherwise>
 							</xsl:choose>
-							<br />@@title@@: <xsl:value-of select="notification_data/purchase_request/title" />.
+
 					</td>
 					</tr>
 
 				</table>
 				<br />
 				<table role='presentation' >
-						<tr><td>@@sincerely@@</td></tr>
 						<tr><td>@@department@@</td></tr>
+						<tr><td>@@addressFrom@@</td></tr>
 				</table>
 
 				<xsl:call-template name="lastFooter" /> <!-- footer.xsl -->
