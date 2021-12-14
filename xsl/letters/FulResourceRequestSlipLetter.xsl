@@ -40,7 +40,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 			<body>
 			<h1>
-<!-- BEGIN - 2021.02.10 LSS - whether to print patron name on the request slip - If Trinity destination library print just first three chars of last name, then primary id.  All other circumstances (Wesleyan or Conn destination) print lname, fname. -->		
+<!-- BEGIN - 2021.02.10 LSS - whether to print patron name on the request slip - If Trinity destination library print just first three chars of last name, then primary id.  If ITS Service Center print name, wesid, and email. All other circumstances (Wesleyan or Conn destination) print lname, fname. -->		
 <xsl:choose>
 <xsl:when test="contains(notification_data/request/delivery_address,'Trinity')" >
 	<h1>
@@ -49,6 +49,13 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 			<xsl:value-of select="notification_data/user_for_printing/identifiers/code_value/value"/>
 		</xsl:if>	
 	</h1>
+</xsl:when>
+<xsl:when test="contains(notification_data/request/delivery_address,'WU - ITS Service Center')" >
+		<xsl:value-of select="notification_data/user_for_printing/name"/><xsl:text> - </xsl:text>
+		<xsl:if test = "notification_data/user_for_printing/identifiers/code_value/code = 'Primary Identifier'">
+			<xsl:value-of select="notification_data/user_for_printing/identifiers/code_value/value"/><xsl:text> - </xsl:text>
+		</xsl:if>	
+		<xsl:value-of select="notification_data/user_for_printing/email"/>
 </xsl:when>
 <xsl:otherwise>
 							<xsl:value-of select="notification_data/user_for_printing/name"/>
