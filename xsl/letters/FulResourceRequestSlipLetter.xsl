@@ -94,9 +94,9 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 							<td><strong>@@request_id@@: </strong><img src="cid:request_id_barcode.png" alt="Request Barcode"/></td>
 						</tr>
 <!-- BEGIN - Wesleyan print barcode if it has one -->
-						<xsl:if  test="notification_data/phys_item_display/available_items/available_item/barcode != ''" >
+						<xsl:if  test="notification_data/phys_item_display/optional_barcodes/string != ''" >
 						<tr>
-							<td><b>@@item_barcode@@: </b><span style="font-family:'Free 3 of 9'; font-size:36pt">*<xsl:value-of select="notification_data/phys_item_display/available_items/available_item/barcode"/>*</span><br /><xsl:value-of select="notification_data/phys_item_display/available_items/available_item/barcode"/></td>
+							<td><b>@@item_barcode@@: </b><span style="font-family:'Free 3 of 9'; font-size:36pt">*<xsl:value-of select="notification_data/phys_item_display/optional_barcodes/string"/>*</span><br /><xsl:value-of select="notification_data/phys_item_display/optional_barcodes/string"/></td>
 						</tr>
 						</xsl:if>
 						<xsl:if  test="notification_data/external_id != ''" >
