@@ -36,6 +36,12 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 				</xsl:if> 	
 			</xsl:if>
 			<xsl:comment>END LSS added this section for Wesleyan to prevent printing move temporarily slips and restore items slips, except in Music</xsl:comment>
+			
+			<xsl:comment>BEGIN 2025.03.18 LSS added this section for Wesleyan to prevent printing pick slips for items from an interested user on a purchase order</xsl:comment>
+			<xsl:if test="contains(notification_data/request/note,'Interested user from order')">
+			 		<xsl:message terminate="yes">Terminating because this is a purchase order interested user</xsl:message>
+			</xsl:if> 
+			<xsl:comment>END LSS added this section for Wesleyan to prevent printing pick slips for items from an interested user on a purchase order</xsl:comment>
 
 
 			<body>
